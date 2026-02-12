@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islam & Esraa Wedding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050a18;
+            --gold-primary: #d4af37;
+            --gold-secondary: #f9e29c;
+            --text-light: #ffffff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-light);
+        }
+
+        /* Animated Background Stars */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            z-index: -1;
+        }
+
+        /* Gold Glow Container */
+        .container {
+            text-align: center;
+            padding: 40px;
+            border: 2px solid var(--gold-primary);
+            background: rgba(5, 10, 24, 0.8);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            border-radius: 5px;
+            max-width: 90%;
+            position: relative;
+        }
+
+        h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: var(--gold-secondary);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(249, 226, 156, 0.5);
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            letter-spacing: 5px;
+            margin-top: 0;
+            text-transform: uppercase;
+            color: var(--gold-primary);
+        }
+
+        .divider {
+            width: 60%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+            margin: 20px auto;
+        }
+
+        /* Countdown Grid */
+        #countdown {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .time-segment {
+            display: flex;
+            flex-direction: column;
+            min-width: 80px;
+        }
+
+        .number {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gold-secondary);
+        }
+
+        .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-note {
+            margin-top: 30px;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        /* Responsive Tweaks */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 2.2rem; }
+            .number { font-size: 1.8rem; }
+            #countdown { gap: 10px; }
+            .time-segment { min-width: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div>
+
+    <div class="container">
+        <h2>Save the Date</h2>
+        <h1>Islam & Esraa</h1>
+        <div class="divider"></div>
+        
+        <div id="countdown">
+            <div class="time-segment">
+                <span class="number" id="days">00</span>
+                <span class="label">Days</span>
+            </div>
+            <div class="time-segment">
+                <span class="number" id="hours">00</span>
+                <span class="label">Hours</span>
+            </div>
+            <div class="time-segment">
+                <span class="number" id="minutes">00</span>
+                <span class="label">Mins</span>
+            </div>
+            <div class="time-segment">
+                <span class="number" id="seconds">00</span>
+                <span class="label">Secs</span>
+            </div>
+        </div>
+
+        <p class="footer-note">March 26, 2026 • 7:00 PM</p>
+    </div>
+
+    <script>
+        // Target Date: March 26, 2026, 19:00:00
+        const weddingDate = new Date("March 26, 2026 19:00:00").getTime();
+
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            // Calculations
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Output to display
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+
+            // If the date is passed
+            if (distance < 0) {
+                clearInterval(interval);
+                document.querySelector(".container").innerHTML = "<h1>Happy Wedding Day!</h1>";
+            }
+        };
+
+        const interval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Run immediately
+    </script>
+</body>
+</html>
